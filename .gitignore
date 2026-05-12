@@ -1,0 +1,4 @@
+.build/
+*.o
+notify-tool
+.DS_Store

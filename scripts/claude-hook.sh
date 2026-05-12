@@ -1,5 +1,5 @@
 #!/bin/bash
-# Example Claude Code Stop hook — notifies when Claude finishes a task.
+# claude-hook.sh — Claude Code Stop hook for cc-bell
 # Install: link or copy to ~/.claude/notify-done.sh, then add to
 #   ~/.claude/settings.json as a Stop hook.
 #
@@ -9,11 +9,11 @@
 #   }
 
 PROJECT=$(basename "$PWD")
-BINARY="${NOTIFY_TOOL_BINARY:-/usr/local/bin/notify-tool}"
+BINARY="${NOTIFY_TOOL_BINARY:-/usr/local/bin/cc-bell}"
 
 # Use ~/.claude/ binary as fallback (legacy install)
 if [ ! -x "$BINARY" ]; then
-  BINARY="$HOME/.claude/notify-tool"
+  BINARY="$HOME/.claude/cc-bell"
 fi
 
 [ ! -x "$BINARY" ] && exit 0

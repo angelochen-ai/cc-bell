@@ -1,4 +1,4 @@
-# notify-tool — 工作守则
+# CC Bell — 工作守则
 
 ## 核心规则：双目录同步
 
@@ -6,30 +6,32 @@
 
 | 位置 | 用途 |
 |------|------|
-| `~/coding/test/` | 开源项目根目录，代码的 canonical 源 |
+| `~/coding/cc-bell/` | 开源项目根目录，代码的 canonical 源 |
 | `~/.claude/` | 用户本地运行环境，daemon 实际执行处 |
 
 **每次修改后必须执行：**
-1. 写入/编辑 `~/coding/test/` 下的源文件
-2. 将编译产物复制到 `~/.claude/notify-tool`
+1. 写入/编辑 `~/coding/cc-bell/` 下的源文件
+2. 将编译产物复制到 `~/.claude/cc-bell`
 3. 重启 daemon（kill + launchctl reload）
 4. 如果修改了 plist，同步到 `~/Library/LaunchAgents/`
 
 ## 构建
 
 ```bash
-make build        # 编译到 .build/notify-tool
+make build        # 编译到 .build/cc-bell
 make install      # 安装到 /usr/local/bin + LaunchAgent
 ```
 
 ## 项目结构
 
 ```
-test/
-├── notify-tool.swift       # 主程序
+cc-bell/
+├── cc-bell.swift           # 主程序
 ├── Makefile                # 构建/安装/卸载
-├── com.notify-tool.plist   # LaunchAgent
+├── com.cc-bell.plist       # LaunchAgent
 ├── scripts/notify.sh       # CLI 通知脚本
+├── scripts/claude-hook.sh  # Claude Code 集成示例
+├── scripts/codex-hook.sh   # Codex CLI 集成示例
 ├── README.md               # 文档
 ├── LICENSE                 # MIT
 └── CLAUDE.md               # 本文件

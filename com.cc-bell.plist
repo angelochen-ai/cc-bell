@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.notify-tool</string>
+    <string>com.cc-bell</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/local/bin/notify-tool</string>
+        <string>/usr/local/bin/cc-bell</string>
         <string>--daemon</string>
     </array>
     <key>RunAtLoad</key>
@@ -16,8 +16,8 @@
     <key>ProcessType</key>
     <string>Background</string>
     <key>StandardOutPath</key>
-    <string>/tmp/notify-tool.log</string>
+    <string>/tmp/cc-bell.log</string>
     <key>StandardErrorPath</key>
-    <string>/tmp/notify-tool.log</string>
+    <string>/tmp/cc-bell.log</string>
 </dict>
 </plist>

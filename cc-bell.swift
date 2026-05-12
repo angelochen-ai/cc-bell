@@ -24,7 +24,7 @@ func loc(_ key: String) -> String {
 // MARK: - Error logging
 
 func logErr(_ msg: String) {
-    fputs("notify-tool: \(msg)\n", stderr)
+    fputs("cc-bell: \(msg)\n", stderr)
 }
 
 // MARK: - Models
@@ -686,17 +686,17 @@ let delegate = AppDelegate()
 let args = CommandLine.arguments
 
 if args.contains("--version") || args.contains("-v") {
-    print("notify-tool version \(toolVersion)")
+    print("cc-bell version \(toolVersion)")
     exit(0)
 }
 
 if args.contains("--help") || args.contains("-h") {
     print("""
-notify-tool v\(toolVersion) — macOS notification center in your menu bar
+cc-bell v\(toolVersion) — macOS menu bar notifications for AI coding assistants
 
 Usage:
-  notify-tool --daemon              Run as background daemon
-  notify-tool --project <name> ...  Send a notification (notify mode)
+  cc-bell --daemon              Run as background daemon
+  cc-bell --project <name> ...  Send a notification (notify mode)
 
 Notify mode arguments:
   --project <name>   Project name (required)

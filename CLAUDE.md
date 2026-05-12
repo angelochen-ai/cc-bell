@@ -29,9 +29,12 @@ cc-bell/
 ├── cc-bell.swift           # 主程序
 ├── Makefile                # 构建/安装/卸载
 ├── com.cc-bell.plist       # LaunchAgent
-├── scripts/notify.sh       # CLI 通知脚本
-├── scripts/claude-hook.sh  # Claude Code 集成示例
-├── scripts/codex-hook.sh   # Codex CLI 集成示例
+├── scripts/
+│   ├── lib.sh              # 共享函数（IDE 检测、图标）
+│   ├── setup.sh            # Claude Code 集成一键安装
+│   ├── claude-hook.sh      # Claude Code hook
+│   ├── codex-hook.sh       # Codex CLI hook
+│   └── notify.sh           # CLI 通知脚本
 ├── README.md               # 文档
 ├── LICENSE                 # MIT
 └── CLAUDE.md               # 本文件

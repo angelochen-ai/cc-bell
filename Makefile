@@ -17,8 +17,8 @@ install: build
 	@echo ""
 	@echo "==> Installing binary to /usr/local/bin/cc-bell..."
 	@echo "    (sudo required — /usr/local/bin/ is system-wide, needs root permission)"
-	@sudo cp $(BUILD_DIR)/$(BINARY) $(PREFIX)/$(BINARY) 2>/dev/null || true
-	@# Fallback: copy to ~/.claude/ if sudo unavailable (e.g. CI, non-interactive)
+	@sudo cp $(BUILD_DIR)/$(BINARY) $(PREFIX)/$(BINARY)
+	@# Fallback: copy to ~/.claude/ too (so hooks can find it even if /usr/local/bin/ is missing)
 	@cp $(BUILD_DIR)/$(BINARY) $(HOME)/.claude/$(BINARY) 2>/dev/null || true
 	@chmod +x $(HOME)/.claude/$(BINARY) 2>/dev/null || true
 	@cp $(PLIST) $(LAUNCH_AGENTS_DIR)/$(PLIST)
@@ -34,7 +34,9 @@ setup:
 uninstall:
 	@launchctl unload $(LAUNCH_AGENTS_DIR)/$(PLIST) 2>/dev/null || true
 	@rm -f $(LAUNCH_AGENTS_DIR)/$(PLIST)
-	@sudo rm -f $(PREFIX)/$(BINARY) 2>/dev/null || true
+	@# Try user-accessible paths first, then system-wide
+	@rm -f $(HOME)/.claude/$(BINARY) 2>/dev/null || true
+	@sudo rm -f $(PREFIX)/$(BINARY)
 	@rm -f $(HOME)/.claude/notify-done.sh
 	@rm -f $(HOME)/.claude/lib.sh
 	@rm -f $(HOME)/.claude/codex-hook.sh

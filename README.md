@@ -15,7 +15,7 @@ Normal              Do Not Disturb
 
 ```bash
 git clone https://github.com/angelochen-ai/cc-bell.git
-cd cc-bell
+cd cc-bell          # <-- enter the project directory first
 make install
 ```
 
@@ -122,8 +122,23 @@ WezTerm, Terminal — or any app name via the `--ide` argument.
 
 ## Uninstall
 
+From the project directory:
+
 ```bash
 make uninstall
+```
+
+This removes the daemon, the menu bar icon, the binary from `/usr/local/bin/`,
+the hook scripts from `~/.claude/`, and disables auto-start.
+
+Forgot where you cloned it?
+
+```bash
+# Uninstall from anywhere using the repo
+git clone https://github.com/angelochen-ai/cc-bell.git
+cd cc-bell
+make uninstall
+rm -rf cc-bell
 ```
 
 ## Project structure

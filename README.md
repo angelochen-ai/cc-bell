@@ -1,8 +1,8 @@
 # CC Bell
 
-> **Coding Companion Bell** — macOS menu bar notifications for AI coding assistants.
+> **Coding Companion Bell** — macOS menu bar notifications for Claude Code & Codex CLI.
 
-When your AI assistant finishes a task, CC Bell pops a floating panel in
+When Claude Code or Codex CLI finishes a task, CC Bell pops a floating panel in
 the corner of your screen — showing the project name, IDE, and status. Click
 a notification to jump straight to the project.
 
@@ -27,8 +27,8 @@ You'll be prompted for your **macOS password** — this is needed to install
 the binary to `/usr/local/bin/` so you can run `cc-bell` from anywhere in
 your terminal. Everything else (daemon, hooks, autostart) runs as your user.
 
-The daemon starts automatically at login. From now on, when your
-AI assistant finishes a task, you'll see a notification.
+The daemon starts automatically at login. From now on, when Claude Code
+finishes a task, you'll see a notification.
 
 ## Features
 

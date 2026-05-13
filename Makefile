@@ -34,12 +34,21 @@ setup:
 uninstall:
 	@launchctl unload $(LAUNCH_AGENTS_DIR)/$(PLIST) 2>/dev/null || true
 	@rm -f $(LAUNCH_AGENTS_DIR)/$(PLIST)
-	@# Try user-accessible paths first, then system-wide
-	@rm -f $(HOME)/.claude/$(BINARY) 2>/dev/null || true
-	@sudo rm -f $(PREFIX)/$(BINARY)
+	@rm -f $(HOME)/.claude/$(BINARY)
 	@rm -f $(HOME)/.claude/notify-done.sh
 	@rm -f $(HOME)/.claude/lib.sh
 	@rm -f $(HOME)/.claude/codex-hook.sh
+	@rm -f $(HOME)/.claude/notify-pending.json
+	@rm -f $(HOME)/.claude/notify-pending.lock
+	@rm -f $(HOME)/.claude/notify-daemon.pid
+	@rm -f $(HOME)/.claude/notify-sound
+	@rm -f $(HOME)/.claude/notify-muted
+	@rm -f $(HOME)/.claude/notify-dnd
+	@# System-wide binary — needs sudo, do last so everything else is already cleaned up
+	@sudo rm -f $(PREFIX)/$(BINARY) 2>/dev/null; \
+	  if [ $$? -ne 0 ]; then \
+	    echo "  (skipped /usr/local/bin/cc-bell — re-run with sudo or delete manually)"; \
+	  fi
 	@echo "cc-bell uninstalled"
 
 reinstall: uninstall install

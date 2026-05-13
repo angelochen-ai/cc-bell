@@ -60,9 +60,53 @@ get_icon() {
   esac
 }
 
-# --- Generate random status line ---
+# --- Detect system language (macOS) ---
+is_system_chinese() {
+  local locale; locale=$(defaults read -g AppleLocale 2>/dev/null || echo "en-US")
+  case "$locale" in zh*) return 0 ;; esac
+  return 1
+}
+
+# --- Generate random status line (bilingual, with emoji) ---
 random_status() {
-  local titles=("Completed" "Done" "Finished" "Ready" "All set" "Wrapped up")
-  local subtitles=("Take a look" "Check it out" "Come see" "Ready for review" "All done here")
+  if is_system_chinese; then
+    local titles=(
+      "✅ 搞定了"
+      "✨ 完工"
+      "🎉 做好了"
+      "🌟 任务完成"
+      "🚀 搞定"
+      "💪 完成了"
+      "🎯 收工"
+    )
+    local subtitles=(
+      "来看看吧"
+      "去验收一下"
+      "快来看看"
+      "AI 喊你回来"
+      "回来看看吧"
+      "可以检查了"
+      "等你来看"
+    )
+  else
+    local titles=(
+      "✅ Ready"
+      "✨ Done"
+      "🎉 All set"
+      "🌟 Complete"
+      "🚀 Finished"
+      "💪 Wrapped up"
+      "🎯 All done"
+    )
+    local subtitles=(
+      "Come take a look"
+      "Go check it out"
+      "Come see what's new"
+      "Your AI is ready"
+      "Time to review"
+      "Take a peek"
+      "All finished up"
+    )
+  fi
   echo "${titles[$RANDOM % ${#titles[@]}]}|${subtitles[$RANDOM % ${#subtitles[@]}]}"
 }

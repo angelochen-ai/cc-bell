@@ -21,7 +21,7 @@ install: build
 	@# Fallback: copy to ~/.claude/ too (so hooks can find it even if /usr/local/bin/ is missing)
 	@cp $(BUILD_DIR)/$(BINARY) $(HOME)/.claude/$(BINARY) 2>/dev/null || true
 	@chmod +x $(HOME)/.claude/$(BINARY) 2>/dev/null || true
-	@cp $(PLIST) $(LAUNCH_AGENTS_DIR)/$(PLIST)
+	@sed "s|__HOME__|$(HOME)|g" $(PLIST) > $(LAUNCH_AGENTS_DIR)/$(PLIST)
 	@launchctl unload $(LAUNCH_AGENTS_DIR)/$(PLIST) 2>/dev/null || true
 	@launchctl load $(LAUNCH_AGENTS_DIR)/$(PLIST)
 	@echo "cc-bell v$(VERSION) installed and configured"

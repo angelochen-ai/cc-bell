@@ -6,7 +6,7 @@
     <string>com.cc-bell</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/local/bin/cc-bell</string>
+        <string>__HOME__/.claude/cc-bell</string>
         <string>--daemon</string>
     </array>
     <key>RunAtLoad</key>

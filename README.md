@@ -23,6 +23,10 @@ That's one command. It compiles the binary, installs it to `/usr/local/bin/cc-be
 starts the daemon in your menu bar, and configures Claude Code to
 automatically notify you when a task finishes.
 
+You'll be prompted for your **macOS password** — this is needed to install
+the binary to `/usr/local/bin/` so you can run `cc-bell` from anywhere in
+your terminal. Everything else (daemon, hooks, autostart) runs as your user.
+
 The daemon starts automatically at login. From now on, when your
 AI assistant finishes a task, you'll see a notification.
 

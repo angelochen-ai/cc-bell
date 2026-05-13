@@ -14,6 +14,9 @@ build:
 
 install: build
 	@bash scripts/setup.sh
+	@echo ""
+	@echo "==> Installing binary to /usr/local/bin/cc-bell..."
+	@echo "    (sudo required — /usr/local/bin/ is system-wide, needs root permission)"
 	@sudo cp $(BUILD_DIR)/$(BINARY) $(PREFIX)/$(BINARY) 2>/dev/null || true
 	@# Fallback: copy to ~/.claude/ if sudo unavailable (e.g. CI, non-interactive)
 	@cp $(BUILD_DIR)/$(BINARY) $(HOME)/.claude/$(BINARY) 2>/dev/null || true

@@ -116,6 +116,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         NotificationCenter.default.addObserver(
             self, selector: #selector(screenChanged),
             name: NSApplication.didChangeScreenParametersNotification, object: nil)
+
+        // Dismiss notifications when user returns to the IDE/terminal
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self, selector: #selector(appActivated),
+            name: NSWorkspace.didActivateApplicationNotification, object: nil)
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -399,6 +404,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
     }
 
+    /// Auto-dismiss when user switches back to the IDE/terminal that triggered the notification
+    @objc func appActivated(_ notification: Notification) {
+        guard !items.isEmpty,
+              let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication,
+              let activatedName = app.localizedName else { return }
+
+        for item in items where activatedName == resolveAppName(for: item.ide) {
+            clearItems()
+            panel?.orderOut(nil)
+            return
+        }
+    }
+
     @objc func openItem(_ sender: NSGestureRecognizer) {
         guard let idStr = sender.view?.identifier?.rawValue,
               let idx = Int(idStr),
@@ -419,23 +437,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
     }
 
+    /// Map IDE identifier to macOS app name
+    func resolveAppName(for ide: String) -> String {
+        switch ide {
+        case "Cursor":     return "Cursor"
+        case "VS Code":    return "Visual Studio Code"
+        case "Trae":       return "Trae"
+        case "Qoder":      return "Qoder"
+        case "iTerm2":     return "iTerm"
+        case "Warp":       return "Warp"
+        case "Ghostty":    return "Ghostty"
+        case "Kitty":      return "kitty"
+        case "Alacritty":  return "Alacritty"
+        case "WezTerm":    return "WezTerm"
+        case "Terminal":   return "Terminal"
+        default:           return ide
+        }
+    }
+
     /// Map IDE identifier to macOS app name and open the project path
     func openProjectInIDE(_ item: NotificationItem) {
-        let appName: String
-        switch item.ide {
-        case "Cursor":     appName = "Cursor"
-        case "VS Code":    appName = "Visual Studio Code"
-        case "Trae":       appName = "Trae"
-        case "Qoder":      appName = "Qoder"
-        case "iTerm2":     appName = "iTerm"
-        case "Warp":       appName = "Warp"
-        case "Ghostty":    appName = "Ghostty"
-        case "Kitty":      appName = "kitty"
-        case "Alacritty":  appName = "Alacritty"
-        case "WezTerm":    appName = "WezTerm"
-        case "Terminal":   appName = "Terminal"
-        default:           appName = item.ide
-        }
+        let appName = resolveAppName(for: item.ide)
         guard let path = item.path, !path.isEmpty else { return }
         let task = Process()
         task.launchPath = "/usr/bin/open"

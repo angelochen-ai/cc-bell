@@ -14,7 +14,7 @@ Normal              Do Not Disturb
 ## Quick Start
 
 ```bash
-git clone https://github.com/an3397016259-debug/cc-bell.git
+git clone https://github.com/angelochen-ai/cc-bell.git
 cd cc-bell
 make install
 ```
